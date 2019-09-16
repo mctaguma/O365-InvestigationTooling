@@ -1,10 +1,4 @@
-#This script will enable non-owner mailbox access auditing on every mailbox in your tenancy
-#First, let's get us a cred!
-$userCredential = Get-Credential
-
-#This gets us connected to an Exchange remote powershell service
-$ExoSession = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri https://outlook.office365.com/powershell-liveid/ -Credential $userCredential -Authentication Basic -AllowRedirection
-Import-PSSession $ExoSession -Name Get-Mailbox, Set-Mailbox
+# Connect using Exchange Online PowerShell module (Connect-EXOPSSession)
 
 #Enable global audit logging
 foreach ($mailbox in Get-Mailbox -ResultSize Unlimited -Filter {RecipientTypeDetails -eq "UserMailbox" -or RecipientTypeDetails -eq "SharedMailbox" -or RecipientTypeDetails -eq "RoomMailbox" -or RecipientTypeDetails -eq "DiscoveryMailbox"})
